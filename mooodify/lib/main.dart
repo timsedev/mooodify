@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:mooodify/app/app.bottomsheets.dart';
+import 'package:mooodify/app/app.dialogs.dart';
+import 'package:mooodify/app/app.locator.dart';
+import 'package:mooodify/app/app.router.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
+  setupDialogUi();
+  setupBottomSheetUi();
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mooodify',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      // home:
+      initialRoute: Routes.startupView,
+      onGenerateRoute: StackedRouter().onGenerateRoute,
+      navigatorKey: StackedService.navigatorKey,
+      navigatorObservers: [
+        StackedService.routeObserver,
+      ],
     );
   }
 }
