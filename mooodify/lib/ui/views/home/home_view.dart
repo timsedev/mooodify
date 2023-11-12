@@ -20,8 +20,9 @@ class HomeView extends StackedView<HomeViewModel> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              _buildHeader(),
               verticalSpaceMassive,
+              _buildHeader(),
+              verticalSpaceLarge,
               SizedBox(
                 height: 300,
                 child: _buildMoodSlider(viewModel),
