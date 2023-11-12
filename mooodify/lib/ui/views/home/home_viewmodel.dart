@@ -7,6 +7,11 @@ class HomeViewModel extends BaseViewModel {
   Mood selectedMood = Mood.Happy;
   int moodIndex = 2; // default to Neutral
 
+  void onMoodSliderChanged(int index) {
+    moodIndex = index;
+    notifyListeners();
+  }
+
   void selectMood() {
     selectedMood = moods.elementAt(moodIndex);
     notifyListeners();

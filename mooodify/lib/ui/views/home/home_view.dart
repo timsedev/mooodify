@@ -28,6 +28,8 @@ class HomeView extends StackedView<HomeViewModel> {
               ),
               verticalSpaceLarge,
               _buildSelectMoodButton(viewModel),
+              verticalSpaceLarge,
+              Text(viewModel.selectedMood.name),
             ],
           ),
         ),
@@ -48,6 +50,7 @@ class HomeView extends StackedView<HomeViewModel> {
   Widget _buildMoodSlider(HomeViewModel viewModel) {
     return PageView(
       controller: PageController(viewportFraction: 0.8, initialPage: 1),
+      onPageChanged: viewModel.onMoodSliderChanged,
       children: viewModel.moods
           .map((mood) => Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10),
