@@ -19,7 +19,14 @@ class HomeView extends StackedView<HomeViewModel> {
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [],
+            children: [
+              _buildHeader(),
+              verticalSpaceMassive,
+              SizedBox(
+                height: 300,
+                child: _buildMoodSlider(viewModel),
+              ),
+            ],
           ),
         ),
       ),
@@ -31,4 +38,33 @@ class HomeView extends StackedView<HomeViewModel> {
     BuildContext context,
   ) =>
       HomeViewModel();
+
+  Widget _buildHeader() {
+    return const Text('Today, 11 Nov 2023');
+  }
+
+  Widget _buildMoodSlider(HomeViewModel viewModel) {
+    return PageView(
+      controller: PageController(viewportFraction: 0.8, initialPage: 1),
+      children: viewModel.moods
+          .map((mood) => Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.black,
+                ),
+                child: Center(
+                  child: Text(
+                    mood.name,
+                    style: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ))
+          .toList(),
+    );
+  }
 }
