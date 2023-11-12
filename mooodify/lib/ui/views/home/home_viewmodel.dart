@@ -28,13 +28,14 @@ class HomeViewModel extends BaseViewModel {
 
   void selectMood() {
     final selectedMood = moods.elementAt(moodIndex);
-    _moodService.addMood(DateTime.now(), selectedMood);
-    this.selectedMood = _moodService.getMood(DateTime.now());
+    _moodService.addMood(selectedDate, selectedMood);
+    this.selectedMood = _moodService.getMood(selectedDate);
     notifyListeners();
 
     // For debugging purposes
     _moodService.printMoods();
     log('Selected moodname: ${selectedMood.moodName}');
+    log('All Selected moods: ${_moodService.moodByDay}');
   }
 
   String formatDate(DateTime now) {
