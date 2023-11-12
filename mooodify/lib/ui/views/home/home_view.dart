@@ -21,7 +21,7 @@ class HomeView extends StackedView<HomeViewModel> {
             mainAxisSize: MainAxisSize.max,
             children: [
               verticalSpaceMassive,
-              _buildHeader(),
+              _buildDate(),
               verticalSpaceLarge,
               SizedBox(
                 height: 300,
@@ -50,7 +50,7 @@ class HomeView extends StackedView<HomeViewModel> {
     viewModel.init();
   }
 
-  Widget _buildHeader() {
+  Widget _buildDate() {
     return const Text('Today, 11 Nov 2023');
   }
 

@@ -26,5 +26,8 @@ class HomeViewModel extends BaseViewModel {
     _moodService.addMood(DateTime.now(), selectedMood);
     this.selectedMood = _moodService.getMood(DateTime.now());
     notifyListeners();
+
+    // For debugging purposes
+    _moodService.printMoods();
   }
 }
