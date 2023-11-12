@@ -68,7 +68,7 @@ class HomeView extends StackedView<HomeViewModel> {
           alignment: Alignment.center,
           width: screenWidthFraction(
             context,
-            dividedBy: 3,
+            dividedBy: 2,
           ),
           child: Text(
             viewModel.formatDate(viewModel.selectedDate),
