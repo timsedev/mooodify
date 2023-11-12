@@ -3,11 +3,13 @@ import 'package:mooodify/core/models/mood.dart';
 class MoodService {
   Map<DateTime, Mood> moodByDay = {};
 
-  void addMood(DateTime date, Mood mood) {
+  void addMood(DateTime datetime, Mood mood) {
+    final date = DateTime(datetime.year, datetime.month, datetime.day);
     moodByDay[date] = mood;
   }
 
-  Mood? getMood(DateTime date) {
-    return moodByDay[date];
+  Mood getMood(DateTime datetime) {
+    final date = DateTime(datetime.year, datetime.month, datetime.day);
+    return moodByDay[date]!;
   }
 }

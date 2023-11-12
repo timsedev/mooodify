@@ -44,6 +44,12 @@ class HomeView extends StackedView<HomeViewModel> {
   ) =>
       HomeViewModel();
 
+  @override
+  void onViewModelReady(HomeViewModel viewModel) async {
+    super.onViewModelReady(viewModel);
+    viewModel.init();
+  }
+
   Widget _buildHeader() {
     return const Text('Today, 11 Nov 2023');
   }
