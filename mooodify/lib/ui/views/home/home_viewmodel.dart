@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:intl/intl.dart';
 import 'package:mooodify/app/app.locator.dart';
 import 'package:mooodify/core/models/mood.dart';
@@ -7,8 +9,8 @@ import 'package:stacked/stacked.dart';
 class HomeViewModel extends BaseViewModel {
   final _moodService = locator<MoodService>();
 
-  List<Mood> get moods => Mood.values;
-  Mood selectedMood = Mood.Neutral;
+  List<Mood> get moods => availableMoods;
+  Mood selectedMood = Mood.neutral;
   int moodIndex = 2; // default to Neutral
 
   Future<void> init() async {
@@ -30,6 +32,7 @@ class HomeViewModel extends BaseViewModel {
 
     // For debugging purposes
     _moodService.printMoods();
+    log('Selected moodname: ${selectedMood.moodName}');
   }
 
   String formatDate(DateTime now) {

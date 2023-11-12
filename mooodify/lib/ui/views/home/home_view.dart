@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mooodify/core/models/mood.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mooodify/ui/common/app_colors.dart';
 import 'package:mooodify/ui/common/ui_helpers.dart';
@@ -35,7 +38,7 @@ class HomeView extends StackedView<HomeViewModel> {
               verticalSpaceLarge,
               _buildSelectMoodButton(viewModel),
               verticalSpaceLarge,
-              Text(viewModel.selectedMood.name),
+              Text(viewModel.selectedMood.moodName),
             ],
           ),
         ),
@@ -99,7 +102,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 ),
                 child: Center(
                   child: Text(
-                    mood.name,
+                    mood.moodName,
                     style: const TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.w900,

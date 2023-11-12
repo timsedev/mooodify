@@ -27,3 +27,11 @@ extension MoodExtension on Mood {
     }
   }
 }
+
+final List<Mood> availableMoods = [
+  Mood.depressed,
+  Mood.stressed,
+  Mood.neutral,
+  Mood.happy,
+  Mood.excited,
+];
