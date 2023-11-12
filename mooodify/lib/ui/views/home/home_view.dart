@@ -26,6 +26,8 @@ class HomeView extends StackedView<HomeViewModel> {
                 height: 300,
                 child: _buildMoodSlider(viewModel),
               ),
+              verticalSpaceLarge,
+              _buildSelectMoodButton(viewModel),
             ],
           ),
         ),
@@ -65,6 +67,19 @@ class HomeView extends StackedView<HomeViewModel> {
                 ),
               ))
           .toList(),
+    );
+  }
+
+  Widget _buildSelectMoodButton(HomeViewModel viewModel) {
+    return ElevatedButton(
+      onPressed: viewModel.selectMood,
+      child: const Text('Select Mood'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
     );
   }
 }
