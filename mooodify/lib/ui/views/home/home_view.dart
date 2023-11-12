@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mooodify/ui/common/app_colors.dart';
 import 'package:mooodify/ui/common/ui_helpers.dart';
@@ -21,7 +22,7 @@ class HomeView extends StackedView<HomeViewModel> {
             mainAxisSize: MainAxisSize.max,
             children: [
               verticalSpaceMassive,
-              _buildDate(),
+              _buildDate(viewModel),
               verticalSpaceLarge,
               SizedBox(
                 height: 300,
@@ -50,8 +51,8 @@ class HomeView extends StackedView<HomeViewModel> {
     viewModel.init();
   }
 
-  Widget _buildDate() {
-    return const Text('Today, 11 Nov 2023');
+  Widget _buildDate(HomeViewModel viewModel) {
+    return Text(viewModel.formatDate(DateTime.now()));
   }
 
   Widget _buildMoodSlider(HomeViewModel viewModel) {
