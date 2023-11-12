@@ -8,7 +8,7 @@ enum Mood {
 }
 
 extension MoodExtension on Mood {
-  String get name {
+  String get moodName {
     switch (this) {
       case Mood.depressed:
         return 'Depressed';
