@@ -12,7 +12,7 @@ class MoodService {
 
   Mood getMood(DateTime datetime) {
     final date = DateTime(datetime.year, datetime.month, datetime.day);
-    return moodByDay[date]!;
+    return moodByDay[date] ?? Mood.none;
   }
 
   /// For debugging purposes
