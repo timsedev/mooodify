@@ -22,7 +22,11 @@ class HomeView extends StackedView<HomeViewModel> {
             mainAxisSize: MainAxisSize.max,
             children: [
               verticalSpaceMassive,
-              _buildDate(viewModel),
+              SizedBox(
+                height: 50,
+                width: double.infinity,
+                child: _buildDate(context, viewModel),
+              ),
               verticalSpaceLarge,
               SizedBox(
                 height: 300,
@@ -51,8 +55,35 @@ class HomeView extends StackedView<HomeViewModel> {
     viewModel.init();
   }
 
-  Widget _buildDate(HomeViewModel viewModel) {
-    return Text(viewModel.formatDate(DateTime.now()));
+  Widget _buildDate(BuildContext context, HomeViewModel viewModel) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            // Logic to decrease the date
+          },
+        ),
+        Container(
+          alignment: Alignment.center,
+          width: screenWidthFraction(
+            context,
+            dividedBy: 3,
+          ),
+          child: Text(
+            viewModel.formatDate(DateTime.now()),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        IconButton(
+          icon: const Icon(Icons.arrow_forward_ios),
+          onPressed: () {
+            // Logic to decrease the date
+          },
+        ),
+      ],
+    );
   }
 
   Widget _buildMoodSlider(HomeViewModel viewModel) {
