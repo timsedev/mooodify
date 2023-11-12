@@ -13,6 +13,8 @@ class HomeViewModel extends BaseViewModel {
   Mood selectedMood = Mood.neutral;
   int moodIndex = 2; // default to Neutral
 
+  DateTime selectedDate = DateTime.now();
+
   Future<void> init() async {
     setBusy(true);
     selectedMood = _moodService.getMood(DateTime.now());
@@ -52,5 +54,19 @@ class HomeViewModel extends BaseViewModel {
             : dayOfWeek;
 
     return '$prefix, $date';
+  }
+
+  void forwardDate() {
+    final tomorrow = selectedDate.add(const Duration(days: 1));
+    selectedMood = _moodService.getMood(tomorrow);
+    selectedDate = tomorrow;
+    notifyListeners();
+  }
+
+  void backwardDate() {
+    final yesterday = selectedDate.subtract(const Duration(days: 1));
+    selectedMood = _moodService.getMood(yesterday);
+    selectedDate = yesterday;
+    notifyListeners();
   }
 }

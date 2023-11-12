@@ -1,10 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:mooodify/core/models/mood.dart';
 import 'package:stacked/stacked.dart';
-import 'package:mooodify/ui/common/app_colors.dart';
 import 'package:mooodify/ui/common/ui_helpers.dart';
 
 import 'home_viewmodel.dart';
@@ -64,9 +62,7 @@ class HomeView extends StackedView<HomeViewModel> {
       children: [
         IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            // Logic to decrease the date
-          },
+          onPressed: viewModel.backwardDate,
         ),
         Container(
           alignment: Alignment.center,
@@ -75,15 +71,13 @@ class HomeView extends StackedView<HomeViewModel> {
             dividedBy: 3,
           ),
           child: Text(
-            viewModel.formatDate(DateTime.now()),
+            viewModel.formatDate(viewModel.selectedDate),
             textAlign: TextAlign.center,
           ),
         ),
         IconButton(
           icon: const Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            // Logic to decrease the date
-          },
+          onPressed: viewModel.forwardDate,
         ),
       ],
     );
@@ -118,13 +112,13 @@ class HomeView extends StackedView<HomeViewModel> {
   Widget _buildSelectMoodButton(HomeViewModel viewModel) {
     return ElevatedButton(
       onPressed: viewModel.selectMood,
-      child: const Text('Select Mood'),
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
       ),
+      child: const Text('Select Mood'),
     );
   }
 }
