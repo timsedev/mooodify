@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:mooodify/core/models/mood.dart';
 
 class MoodService {
@@ -11,5 +13,12 @@ class MoodService {
   Mood getMood(DateTime datetime) {
     final date = DateTime(datetime.year, datetime.month, datetime.day);
     return moodByDay[date]!;
+  }
+
+  /// For debugging purposes
+  void printMoods() {
+    moodByDay.forEach((key, value) {
+      log('$key: $value');
+    });
   }
 }
