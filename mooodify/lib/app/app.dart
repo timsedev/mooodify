@@ -1,5 +1,3 @@
-import 'package:mooodify/ui/bottom_sheets/notice/notice_sheet.dart';
-import 'package:mooodify/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:mooodify/ui/views/home/home_view.dart';
 import 'package:mooodify/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -19,11 +17,9 @@ import 'package:stacked_services/stacked_services.dart';
     // @stacked-service
   ],
   bottomsheets: [
-    StackedBottomsheet(classType: NoticeSheet),
     // @stacked-bottom-sheet
   ],
   dialogs: [
-    StackedDialog(classType: InfoAlertDialog),
     // @stacked-dialog
   ],
 )
