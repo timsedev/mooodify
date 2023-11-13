@@ -66,7 +66,7 @@ class CalendarView extends StackedView<CalendarViewModel> {
                     height: 5,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.red,
+                      color: _setDotColor(date),
                     ),
                   ),
                 );
@@ -87,4 +87,16 @@ class CalendarView extends StackedView<CalendarViewModel> {
     BuildContext context,
   ) =>
       CalendarViewModel();
+
+  Color _setDotColor(DateTime datetime) {
+    // compare datetime and today;
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final date = DateTime(datetime.year, datetime.month, datetime.day);
+    if (date == today) {
+      return Colors.white;
+    }
+
+    return Colors.black;
+  }
 }
