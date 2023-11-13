@@ -57,7 +57,26 @@ class CalendarView extends StackedView<CalendarViewModel> {
                 ),
               ),
             ),
+            markerBuilder: (context, date, events) {
+              if (events.isNotEmpty) {
+                return Positioned(
+                  bottom: 5,
+                  child: Container(
+                    width: 5,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                    ),
+                  ),
+                );
+              }
+              return Container();
+            },
           ),
+          eventLoader: (day) {
+            return viewModel.getMoodsForDay(day);
+          },
         ),
       ),
     );
