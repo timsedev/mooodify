@@ -35,6 +35,7 @@ class HomeView extends StackedView<HomeViewModel> {
               ),
               verticalSpaceLarge,
               _buildSelectMoodButton(viewModel),
+              _buildNavToCalendarButton(viewModel),
               verticalSpaceLarge,
             ],
           ),
@@ -120,6 +121,19 @@ class HomeView extends StackedView<HomeViewModel> {
         ),
       ),
       child: const Text('Select Mood'),
+    );
+  }
+
+  Widget _buildNavToCalendarButton(HomeViewModel viewModel) {
+    return ElevatedButton(
+      onPressed: viewModel.navToCalendarView,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+      child: const Icon(Icons.calendar_today),
     );
   }
 }

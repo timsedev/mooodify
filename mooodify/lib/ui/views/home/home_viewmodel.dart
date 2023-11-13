@@ -2,12 +2,15 @@ import 'dart:developer';
 
 import 'package:intl/intl.dart';
 import 'package:mooodify/app/app.locator.dart';
+import 'package:mooodify/app/app.router.dart';
 import 'package:mooodify/core/models/mood.dart';
 import 'package:mooodify/services/mood_service.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {
   final _moodService = locator<MoodService>();
+  final _navigationService = locator<NavigationService>();
 
   List<Mood> get moods => availableMoods;
   Mood selectedMood = Mood.neutral;
@@ -69,5 +72,9 @@ class HomeViewModel extends BaseViewModel {
     selectedMood = _moodService.getMood(yesterday);
     selectedDate = yesterday;
     notifyListeners();
+  }
+
+  Future<void> navToCalendarView() async {
+    await _navigationService.navigateToCalendarView();
   }
 }
