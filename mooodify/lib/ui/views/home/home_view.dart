@@ -36,7 +36,6 @@ class HomeView extends StackedView<HomeViewModel> {
               verticalSpaceLarge,
               _buildSelectMoodButton(viewModel),
               verticalSpaceLarge,
-              Text(viewModel.selectedMood.moodName),
             ],
           ),
         ),
@@ -92,7 +91,9 @@ class HomeView extends StackedView<HomeViewModel> {
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.black,
+                  color: viewModel.selectedMood.index == mood.index
+                      ? Colors.green
+                      : Colors.black,
                 ),
                 child: Center(
                   child: Text(
