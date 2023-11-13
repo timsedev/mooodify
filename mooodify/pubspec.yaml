@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.18.1
+  table_calendar: ^3.0.9
   stacked: ^3.4.0
   stacked_services: ^1.1.0
 
