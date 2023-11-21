@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mooodify/core/models/mood.dart';
+import 'package:mooodify/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -17,7 +19,13 @@ class CalendarView extends StackedView<CalendarViewModel> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: _buildCalendar(context, viewModel),
+          child: Column(
+            children: [
+              _buildCalendar(context, viewModel),
+              verticalSpaceLarge,
+              _buildTodayMood(context, viewModel),
+            ],
+          ),
         ),
       ),
     );
@@ -104,6 +112,29 @@ class CalendarView extends StackedView<CalendarViewModel> {
       eventLoader: (day) {
         return viewModel.getMoodsForDay(day);
       },
+    );
+  }
+
+  Widget _buildTodayMood(BuildContext context, CalendarViewModel viewModel) {
+    return SizedBox(
+      height: 150,
+      width: 150,
+      child: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.black,
+        ),
+        child: Text(
+          viewModel.todayMood.moodName,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }
