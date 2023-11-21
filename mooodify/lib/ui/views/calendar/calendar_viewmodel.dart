@@ -7,6 +7,7 @@ class CalendarViewModel extends BaseViewModel {
   final _moodService = locator<MoodService>();
 
   Mood todayMood = Mood.none;
+  DateTime focusedDay = DateTime.now();
 
   Future<void> init() async {
     todayMood = _moodService.getMood(DateTime.now());
@@ -22,8 +23,9 @@ class CalendarViewModel extends BaseViewModel {
     return [moodOfDay];
   }
 
-  void updateTodayMood(DateTime datetime) {
-    todayMood = _moodService.getMood(datetime);
+  void onDaySelected(DateTime day) {
+    todayMood = _moodService.getMood(day);
+    focusedDay = day;
     notifyListeners();
   }
 }
