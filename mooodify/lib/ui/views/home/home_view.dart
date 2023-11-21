@@ -85,7 +85,7 @@ class HomeView extends StackedView<HomeViewModel> {
 
   Widget _buildMoodSlider(HomeViewModel viewModel) {
     return PageView(
-      controller: PageController(viewportFraction: 0.8, initialPage: 1),
+      controller: PageController(viewportFraction: 0.8, initialPage: 2),
       onPageChanged: viewModel.onMoodSliderChanged,
       children: viewModel.moods
           .map((mood) => Container(
