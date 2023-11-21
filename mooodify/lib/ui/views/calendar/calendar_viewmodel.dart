@@ -21,4 +21,9 @@ class CalendarViewModel extends BaseViewModel {
     }
     return [moodOfDay];
   }
+
+  void updateTodayMood(DateTime datetime) {
+    todayMood = _moodService.getMood(datetime);
+    notifyListeners();
+  }
 }
