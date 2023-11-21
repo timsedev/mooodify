@@ -58,7 +58,7 @@ class CalendarView extends StackedView<CalendarViewModel> {
     return TableCalendar(
       firstDay: DateTime.utc(2023, 1, 1),
       lastDay: DateTime.utc(2050, 31, 12),
-      focusedDay: DateTime.now(),
+      focusedDay: viewModel.focusedDay,
       calendarFormat: CalendarFormat.month,
       startingDayOfWeek: StartingDayOfWeek.monday,
       headerStyle: const HeaderStyle(
@@ -116,6 +116,9 @@ class CalendarView extends StackedView<CalendarViewModel> {
       ),
       eventLoader: (day) {
         return viewModel.getMoodsForDay(day);
+      },
+      onDaySelected: (selectedDay, focusedDay) {
+        viewModel.onDaySelected(selectedDay);
       },
     );
   }
