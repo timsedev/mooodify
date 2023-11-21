@@ -6,6 +6,13 @@ import 'package:stacked/stacked.dart';
 class CalendarViewModel extends BaseViewModel {
   final _moodService = locator<MoodService>();
 
+  Mood todayMood = Mood.none;
+
+  Future<void> init() async {
+    todayMood = _moodService.getMood(DateTime.now());
+    notifyListeners();
+  }
+
   /// There will only be one mood per day, but the eventLoader expects a list
   List<Mood?> getMoodsForDay(DateTime day) {
     final moodOfDay = _moodService.getMood(day);
