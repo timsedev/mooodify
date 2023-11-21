@@ -37,6 +37,11 @@ class CalendarView extends StackedView<CalendarViewModel> {
   ) =>
       CalendarViewModel();
 
+  @override
+  void onViewModelReady(CalendarViewModel viewModel) async {
+    await viewModel.init();
+  }
+
   Color _setDotColor(DateTime datetime) {
     // compare datetime and today;
     final now = DateTime.now();
