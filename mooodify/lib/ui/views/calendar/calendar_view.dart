@@ -44,10 +44,10 @@ class CalendarView extends StackedView<CalendarViewModel> {
     await viewModel.init();
   }
 
-  Color _setDotColor(DateTime datetime) {
-    // compare datetime and today;
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
+  Color _setDotColor(CalendarViewModel viewModel, DateTime datetime) {
+    // compare datetime and focusedDay;
+    final today = DateTime(viewModel.focusedDay.year,
+        viewModel.focusedDay.month, viewModel.focusedDay.day);
     final date = DateTime(datetime.year, datetime.month, datetime.day);
     if (date == today) {
       return Colors.white;
@@ -124,7 +124,7 @@ class CalendarView extends StackedView<CalendarViewModel> {
                 height: 5,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _setDotColor(date),
+                  color: _setDotColor(viewModel, date),
                 ),
               ),
             );
