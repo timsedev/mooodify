@@ -8,6 +8,7 @@ import 'dart:ui' as _i5;
 
 import 'package:flutter/material.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mooodify/core/models/mood.dart' as _i7;
 import 'package:mooodify/services/mood_service.dart' as _i6;
 import 'package:stacked_services/stacked_services.dart' as _i2;
 
@@ -656,4 +657,55 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
 /// A class which mocks [MoodService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMoodService extends _i1.Mock implements _i6.MoodService {}
+class MockMoodService extends _i1.Mock implements _i6.MoodService {
+  @override
+  Map<DateTime, _i7.Mood> get moodByDay => (super.noSuchMethod(
+        Invocation.getter(#moodByDay),
+        returnValue: <DateTime, _i7.Mood>{},
+        returnValueForMissingStub: <DateTime, _i7.Mood>{},
+      ) as Map<DateTime, _i7.Mood>);
+
+  @override
+  set moodByDay(Map<DateTime, _i7.Mood>? _moodByDay) => super.noSuchMethod(
+        Invocation.setter(
+          #moodByDay,
+          _moodByDay,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addMood(
+    DateTime? datetime,
+    _i7.Mood? mood,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #addMood,
+          [
+            datetime,
+            mood,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.Mood getMood(DateTime? datetime) => (super.noSuchMethod(
+        Invocation.method(
+          #getMood,
+          [datetime],
+        ),
+        returnValue: _i7.Mood.depressed,
+        returnValueForMissingStub: _i7.Mood.depressed,
+      ) as _i7.Mood);
+
+  @override
+  void printMoods() => super.noSuchMethod(
+        Invocation.method(
+          #printMoods,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
