@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:mooodify/core/models/mood.dart';
 import 'package:mooodify/ui/common/ui_helpers.dart';
@@ -55,6 +57,8 @@ class CalendarView extends StackedView<CalendarViewModel> {
   }
 
   Widget _buildCalendar(BuildContext context, CalendarViewModel viewModel) {
+    log('focusedDay: ${viewModel.focusedDay}');
+
     return TableCalendar(
       firstDay: DateTime.utc(2023, 1, 1),
       lastDay: DateTime.utc(2050, 31, 12),
@@ -82,21 +86,35 @@ class CalendarView extends StackedView<CalendarViewModel> {
       availableCalendarFormats: const {
         CalendarFormat.month: 'Month',
       },
+      selectedDayPredicate: (day) => day == viewModel.focusedDay,
       calendarBuilders: CalendarBuilders(
         todayBuilder: (context, day, focusedDay) => Container(
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.black,
-          ),
           child: Center(
             child: Text(
               day.day.toString(),
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
         ),
+        selectedBuilder: (context, day, focusedDay) {
+          log('day: $day, focusedDay: $focusedDay');
+          return Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black,
+            ),
+            child: Center(
+              child: Text(
+                day.day.toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          );
+        },
         markerBuilder: (context, date, events) {
           if (events.isNotEmpty) {
             return Positioned(
