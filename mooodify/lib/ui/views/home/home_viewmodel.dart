@@ -77,4 +77,8 @@ class HomeViewModel extends BaseViewModel {
   Future<void> navToCalendarView() async {
     await _navigationService.navigateToCalendarView();
   }
+
+  Future<void> navToStatsView() async {
+    await _navigationService.navigateToStatsView();
+  }
 }
