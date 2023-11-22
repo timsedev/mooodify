@@ -18,6 +18,7 @@ class CalendarView extends StackedView<CalendarViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: _buildAppBar(context, viewModel),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -42,6 +43,29 @@ class CalendarView extends StackedView<CalendarViewModel> {
   @override
   void onViewModelReady(CalendarViewModel viewModel) async {
     await viewModel.init();
+  }
+
+  AppBar _buildAppBar(BuildContext context, CalendarViewModel viewModel) {
+    return AppBar(
+      leadingWidth: 100,
+      leading: GestureDetector(
+        onTap: viewModel.navBack,
+        child: const Padding(
+          padding: EdgeInsets.all(10),
+          child: Center(
+            child: Text(
+              'Go Back',
+              style: TextStyle(
+                color: Colors.black,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
+      elevation: 0,
+    );
   }
 
   Color _setDotColor(CalendarViewModel viewModel, DateTime datetime) {

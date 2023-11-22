@@ -2,9 +2,11 @@ import 'package:mooodify/app/app.locator.dart';
 import 'package:mooodify/core/models/mood.dart';
 import 'package:mooodify/services/mood_service.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class CalendarViewModel extends BaseViewModel {
   final _moodService = locator<MoodService>();
+  final _navigationService = locator<NavigationService>();
 
   Mood todayMood = Mood.none;
   DateTime focusedDay = DateTime.now();
@@ -27,5 +29,9 @@ class CalendarViewModel extends BaseViewModel {
     todayMood = _moodService.getMood(day);
     focusedDay = day;
     notifyListeners();
+  }
+
+  void navBack() {
+    _navigationService.back();
   }
 }
