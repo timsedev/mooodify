@@ -46,10 +46,10 @@ class CalendarView extends StackedView<CalendarViewModel> {
 
   Color _setDotColor(CalendarViewModel viewModel, DateTime datetime) {
     // compare datetime and focusedDay;
-    final today = DateTime(viewModel.focusedDay.year,
+    final focusedDay = DateTime(viewModel.focusedDay.year,
         viewModel.focusedDay.month, viewModel.focusedDay.day);
     final date = DateTime(datetime.year, datetime.month, datetime.day);
-    if (date == today) {
+    if (date == focusedDay) {
       return Colors.white;
     }
 
@@ -57,8 +57,6 @@ class CalendarView extends StackedView<CalendarViewModel> {
   }
 
   Widget _buildCalendar(BuildContext context, CalendarViewModel viewModel) {
-    log('focusedDay: ${viewModel.focusedDay}');
-
     return TableCalendar(
       firstDay: DateTime.utc(2023, 1, 1),
       lastDay: DateTime.utc(2050, 31, 12),
@@ -88,32 +86,20 @@ class CalendarView extends StackedView<CalendarViewModel> {
       },
       selectedDayPredicate: (day) => day == viewModel.focusedDay,
       calendarBuilders: CalendarBuilders(
-        todayBuilder: (context, day, focusedDay) => Container(
-          child: Center(
-            child: Text(
-              day.day.toString(),
-              style: const TextStyle(
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
+        todayBuilder: (context, day, focusedDay) {
+          return day != focusedDay
+              ? Center(
+                  child: Text(
+                    day.day.toString(),
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              : _selectedDay(day);
+        },
         selectedBuilder: (context, day, focusedDay) {
-          log('day: $day, focusedDay: $focusedDay');
-          return Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.black,
-            ),
-            child: Center(
-              child: Text(
-                day.day.toString(),
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          );
+          return _selectedDay(day);
         },
         markerBuilder: (context, date, events) {
           if (events.isNotEmpty) {
@@ -157,6 +143,23 @@ class CalendarView extends StackedView<CalendarViewModel> {
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _selectedDay(DateTime day) {
+    return Container(
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.black,
+      ),
+      child: Center(
+        child: Text(
+          day.day.toString(),
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
