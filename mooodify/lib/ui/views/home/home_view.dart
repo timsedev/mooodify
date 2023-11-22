@@ -147,7 +147,7 @@ class HomeView extends StackedView<HomeViewModel> {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      child: const Icon(Icons.calendar_today),
+      child: const Icon(Icons.bar_chart_rounded),
     );
   }
 }
