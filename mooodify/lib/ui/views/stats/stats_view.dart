@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:mooodify/core/models/mood.dart';
 import 'package:stacked/stacked.dart';
 
 import 'stats_viewmodel.dart';
@@ -13,9 +16,14 @@ class StatsView extends StackedView<StatsViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildMoodOrbit(
+                context, viewModel, Mood.happy), // temporarily happy ;)
+          ],
+        ),
       ),
     );
   }
@@ -25,4 +33,40 @@ class StatsView extends StackedView<StatsViewModel> {
     BuildContext context,
   ) =>
       StatsViewModel();
+
+  Widget _buildMoodOrbit(
+      BuildContext context, StatsViewModel viewModel, Mood mood) {
+    return Center(
+      child: Container(
+        width: 300,
+        height: 300,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: RadialGradient(
+            colors: [Colors.green[900]!, Colors.yellow],
+            center: Alignment.center,
+            radius: 0.8,
+          ),
+        ),
+        child: ClipOval(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            child: Container(
+              color: Colors.transparent,
+              child: Center(
+                child: Text(
+                  mood.moodName,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
