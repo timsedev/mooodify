@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mooodify/core/models/mood.dart';
 import 'package:mooodify/ui/common/ui_helpers.dart';
@@ -25,6 +26,8 @@ class StatsView extends StackedView<StatsViewModel> {
             verticalSpaceMedium,
             _buildMoodOrbit(
                 context, viewModel, Mood.happy), // temporarily happy ;)
+            verticalSpaceLarge,
+            _buildChart(context, viewModel),
           ],
         ),
       ),
@@ -91,6 +94,28 @@ class StatsView extends StackedView<StatsViewModel> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildChart(BuildContext context, StatsViewModel viewModel) {
+    return SizedBox(
+      height: 100,
+      width: screenWidth(context) * 0.8,
+      child: LineChart(
+        LineChartData(
+          gridData: const FlGridData(show: false),
+          titlesData: const FlTitlesData(show: false),
+          borderData: FlBorderData(show: false),
+          lineBarsData: [
+            LineChartBarData(
+              spots: [],
+              isCurved: true,
+              barWidth: 2,
+              dotData: const FlDotData(show: false),
+            ),
+          ],
         ),
       ),
     );
