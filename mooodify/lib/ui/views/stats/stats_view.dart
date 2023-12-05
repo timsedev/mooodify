@@ -25,7 +25,10 @@ class StatsView extends StackedView<StatsViewModel> {
           children: [
             verticalSpaceMedium,
             _buildMoodOrbit(
-                context, viewModel, Mood.happy), // temporarily happy ;)
+              context,
+              viewModel,
+              Mood(type: 'Happy', value: 1),
+            ), // temporarily happy ;)
             verticalSpaceLarge,
             _buildChart(context, viewModel),
           ],
@@ -84,7 +87,7 @@ class StatsView extends StackedView<StatsViewModel> {
               color: Colors.transparent,
               child: Center(
                 child: Text(
-                  mood.moodName,
+                  mood.type,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,

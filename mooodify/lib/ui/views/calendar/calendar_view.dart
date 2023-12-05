@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:mooodify/core/models/mood.dart';
 import 'package:mooodify/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -163,7 +160,7 @@ class CalendarView extends StackedView<CalendarViewModel> {
           color: Colors.black,
         ),
         child: Text(
-          viewModel.todayMood.moodName,
+          viewModel.todayMood!.type,
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,

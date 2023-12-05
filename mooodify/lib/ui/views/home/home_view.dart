@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:mooodify/core/models/mood.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mooodify/ui/common/ui_helpers.dart';
 
@@ -93,13 +90,13 @@ class HomeView extends StackedView<HomeViewModel> {
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: viewModel.selectedMood.index == mood.index
+                  color: viewModel.selectedMood!.value == mood.value
                       ? Colors.green
                       : Colors.black,
                 ),
                 child: Center(
                   child: Text(
-                    mood.moodName,
+                    mood.type,
                     style: const TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.w900,

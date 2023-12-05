@@ -8,7 +8,7 @@ class CalendarViewModel extends BaseViewModel {
   final _moodService = locator<MoodService>();
   final _navigationService = locator<NavigationService>();
 
-  Mood todayMood = Mood.none;
+  Mood? todayMood;
   DateTime focusedDay = DateTime.now();
 
   Future<void> init() async {
@@ -19,7 +19,7 @@ class CalendarViewModel extends BaseViewModel {
   /// There will only be one mood per day, but the eventLoader expects a list
   List<Mood?> getMoodsForDay(DateTime day) {
     final moodOfDay = _moodService.getMood(day);
-    if (moodOfDay == Mood.none) {
+    if (moodOfDay.value == 0) {
       return [];
     }
     return [moodOfDay];

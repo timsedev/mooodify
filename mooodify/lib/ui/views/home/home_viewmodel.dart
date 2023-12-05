@@ -12,8 +12,8 @@ class HomeViewModel extends BaseViewModel {
   final _moodService = locator<MoodService>();
   final _navigationService = locator<NavigationService>();
 
-  List<Mood> get moods => availableMoods;
-  Mood selectedMood = Mood.neutral;
+  List<Mood> get moods => _moodService.allMoods;
+  Mood? selectedMood;
   int moodIndex = 2; // default to Neutral
 
   DateTime selectedDate = DateTime.now();
@@ -37,7 +37,7 @@ class HomeViewModel extends BaseViewModel {
 
     // For debugging purposes
     _moodService.printMoods();
-    log('Selected moodname: ${selectedMood.moodName}');
+    log('Selected moodname: ${selectedMood.type}');
     log('All Selected moods: ${_moodService.moodByDay}');
   }
 
