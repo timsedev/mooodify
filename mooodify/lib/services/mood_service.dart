@@ -1,15 +1,16 @@
 import 'dart:developer';
 
 import 'package:mooodify/core/models/mood.dart';
+import 'package:mooodify/ui/common/contants.dart';
 
 class MoodService {
   Map<DateTime, Mood?> moodByDay = {};
   List<Mood> allMoods = [
-    Mood(type: 'Terrible', value: -2),
-    Mood(type: 'Bad', value: -1),
-    Mood(type: 'Neutral', value: 0),
-    Mood(type: 'Happy', value: 1),
-    Mood(type: 'Excellent', value: 2),
+    Mood(type: 'Terrible', value: -2, colorGradient: terribleGradient),
+    Mood(type: 'Bad', value: -1, colorGradient: badGradient),
+    Mood(type: 'Neutral', value: 0, colorGradient: neutralGradient),
+    Mood(type: 'Happy', value: 1, colorGradient: happyGradient),
+    Mood(type: 'Excellent', value: 2, colorGradient: excellentGradient),
   ];
 
   void addMood(DateTime datetime, Mood mood) {
