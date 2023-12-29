@@ -31,4 +31,14 @@ class MoodService {
       log('$key: $value');
     });
   }
+
+  /// calculate the average for of mood (value) for the last 7 days:
+  double getAverage(DateTime datetime) {
+    final date = DateTime(datetime.year, datetime.month, datetime.day);
+    final last7Days =
+        List.generate(7, (index) => date.subtract(Duration(days: index)));
+    final moods = last7Days.map((day) => getMood(day).value);
+    final average = moods.reduce((a, b) => a + b) / moods.length;
+    return average;
+  }
 }
