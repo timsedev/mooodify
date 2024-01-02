@@ -186,7 +186,13 @@ class StatsView extends StackedView<StatsViewModel> {
             rightTitles:
                 const AxisTitles(sideTitles: SideTitles(showTitles: false)),
           ),
-          borderData: FlBorderData(show: false),
+          borderData: FlBorderData(
+            show: true,
+            border: const Border(
+              left: BorderSide(color: Colors.black, width: 0.1),
+              bottom: BorderSide(color: Colors.black, width: 0.1),
+            ),
+          ),
           maxY: 2,
           minY: -2,
           lineTouchData: LineTouchData(
