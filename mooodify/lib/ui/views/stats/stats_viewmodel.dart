@@ -64,12 +64,15 @@ class StatsViewModel extends BaseViewModel {
 
   void getWeeklyAverageSpots() {
     final now = DateTime.now();
-    final last7Days =
-        List.generate(7, (index) => now.subtract(Duration(days: index)));
-    final moods = last7Days.map((day) => _moodService.getMood(day).value);
+    final startOfWeek = now.subtract(Duration(days: now.weekday - 1)); // Monday
+
+    final daysOfWeek =
+        List.generate(7, (index) => startOfWeek.add(Duration(days: index)));
+    final moods = daysOfWeek.map((day) => _moodService.getMood(day).value);
+
     chartAverage = moods.reduce((a, b) => a + b) / moods.length;
     chartAverageSpots = List.generate(7, (index) {
-      final day = last7Days[index];
+      final day = daysOfWeek[index];
       final mood = _moodService.getMood(day);
       return FlSpot(index.toDouble(), mood.value);
     });
