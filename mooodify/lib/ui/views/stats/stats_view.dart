@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mooodify/core/models/mood.dart';
+import 'package:mooodify/ui/common/contants.dart';
 import 'package:mooodify/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
@@ -24,10 +25,9 @@ class StatsView extends StackedView<StatsViewModel> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             verticalSpaceMedium,
-            _buildMoodOrbit(
+            _buildAverageOrbit(
               context,
               viewModel,
-              Mood(type: 'Happy', value: 1),
             ), // temporarily happy ;)
             verticalSpaceLarge,
             _buildChart(context, viewModel),
@@ -42,6 +42,11 @@ class StatsView extends StackedView<StatsViewModel> {
     BuildContext context,
   ) =>
       StatsViewModel();
+
+  @override
+  void onViewModelReady(StatsViewModel viewModel) {
+    viewModel.init();
+  }
 
   AppBar _buildAppBar(BuildContext context, StatsViewModel viewModel) {
     return AppBar(
@@ -66,8 +71,7 @@ class StatsView extends StackedView<StatsViewModel> {
     );
   }
 
-  Widget _buildMoodOrbit(
-      BuildContext context, StatsViewModel viewModel, Mood mood) {
+  Widget _buildAverageOrbit(BuildContext context, StatsViewModel viewModel) {
     return Center(
       child: Container(
         width: 300,
@@ -75,7 +79,7 @@ class StatsView extends StackedView<StatsViewModel> {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: RadialGradient(
-            colors: [Colors.green[900]!, Colors.yellow],
+            colors: viewModel.gradientColors,
             center: Alignment.center,
             radius: 0.8,
           ),
@@ -87,7 +91,7 @@ class StatsView extends StackedView<StatsViewModel> {
               color: Colors.transparent,
               child: Center(
                 child: Text(
-                  mood.type,
+                  viewModel.currentAverage.toStringAsFixed(1),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
