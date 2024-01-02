@@ -19,6 +19,8 @@ class StatsViewModel extends BaseViewModel {
   double get chartAverage => _moodService.chartAverage;
   List<FlSpot> get chartAverageSpots => _moodService.chartAverageSpots;
 
+  int selectedTabIndex = 0;
+
   void init() {
     setBusy(true);
     final now = DateTime.now();
@@ -73,5 +75,10 @@ class StatsViewModel extends BaseViewModel {
     _moodService.getWeeklyAverageSpots();
     log('\ngetSpots() executed in ${stopwatch.elapsed}\n');
     stopwatch.stop();
+  }
+
+  void onTabTapped(int index) {
+    selectedTabIndex = index;
+    notifyListeners();
   }
 }

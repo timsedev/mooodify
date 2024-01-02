@@ -108,123 +108,174 @@ class StatsView extends StackedView<StatsViewModel> {
   }
 
   Widget _buildChart(BuildContext context, StatsViewModel viewModel) {
-    return SizedBox(
-      height: 250,
-      width: screenWidth(context) * 0.8,
-      child: LineChart(
-        LineChartData(
-          gridData: const FlGridData(show: false),
-          titlesData: FlTitlesData(
-            show: true,
-            bottomTitles: AxisTitles(
-              sideTitles: SideTitles(
+    return Column(
+      children: [
+        _buildTabBar(viewModel),
+        verticalSpaceMedium,
+        SizedBox(
+          height: 250,
+          width: screenWidth(context) * 0.8,
+          child: LineChart(
+            LineChartData(
+              gridData: const FlGridData(show: false),
+              titlesData: FlTitlesData(
+                show: true,
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, metadata) {
+                        switch (value.toInt()) {
+                          case 0:
+                            return const Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Text('Mon'),
+                            );
+                          case 1:
+                            return const Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Text('Tue'),
+                            );
+                          case 2:
+                            return const Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Text('Wed'),
+                            );
+                          case 3:
+                            return const Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Text('Thu'),
+                            );
+                          case 4:
+                            return const Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Text('Fri'),
+                            );
+                          case 5:
+                            return const Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Text('Sat'),
+                            );
+                          case 6:
+                            return const Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Text('Sun'),
+                            );
+                          default:
+                            throw Exception('Invalid value: $value');
+                        }
+                      },
+                      reservedSize: 50),
+                ),
+                leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
                   showTitles: true,
                   getTitlesWidget: (value, metadata) {
+                    log('value: $value');
                     switch (value.toInt()) {
+                      case -2:
+                        return const Text('-2');
                       case 0:
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Text('Mon'),
-                        );
-                      case 1:
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Text('Tue'),
-                        );
+                        return const Text('0');
                       case 2:
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Text('Wed'),
-                        );
-                      case 3:
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Text('Thu'),
-                        );
-                      case 4:
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Text('Fri'),
-                        );
-                      case 5:
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Text('Sat'),
-                        );
-                      case 6:
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Text('Sun'),
-                        );
+                        return const Text('2');
                       default:
-                        throw Exception('Invalid value: $value');
+                        return Container();
                     }
                   },
-                  reservedSize: 50),
-            ),
-            leftTitles: AxisTitles(
-                sideTitles: SideTitles(
-              showTitles: true,
-              getTitlesWidget: (value, metadata) {
-                log('value: $value');
-                switch (value.toInt()) {
-                  case -2:
-                    return const Text('-2');
-                  case 0:
-                    return const Text('0');
-                  case 2:
-                    return const Text('2');
-                  default:
-                    return Container();
-                }
-              },
-              interval: 2,
-              reservedSize: 40,
-            )),
-            topTitles:
-                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            rightTitles:
-                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          ),
-          borderData: FlBorderData(
-            show: true,
-            border: const Border(
-              left: BorderSide(color: Colors.black, width: 0.1),
-              bottom: BorderSide(color: Colors.black, width: 0.1),
-            ),
-          ),
-          maxY: 2,
-          minY: -2,
-          lineTouchData: LineTouchData(
-            touchTooltipData: LineTouchTooltipData(
-              tooltipBgColor: Colors.black,
-              tooltipRoundedRadius: 8,
-              getTooltipItems: (List<LineBarSpot> touchedSpots) {
-                return touchedSpots.map((barSpot) {
-                  return LineTooltipItem(
-                    '${barSpot.y}',
-                    const TextStyle(color: Colors.white),
-                  );
-                }).toList();
-              },
-            ),
-          ),
-          lineBarsData: [
-            LineChartBarData(
-              spots: viewModel.chartAverageSpots,
-              color: Colors.black,
-              isCurved: true,
-              barWidth: 2,
-              dotData: FlDotData(
+                  interval: 2,
+                  reservedSize: 40,
+                )),
+                topTitles:
+                    const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                rightTitles:
+                    const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              ),
+              borderData: FlBorderData(
                 show: true,
-                getDotPainter: (spot, percent, barData, index) =>
-                    FlDotCirclePainter(
-                  radius: 6, // Change this value as needed
-                  color: Colors.black, // This is the dot color
-                  strokeWidth: 1,
-                  strokeColor: Colors.white, // This is the stroke color
+                border: const Border(
+                  left: BorderSide(color: Colors.black, width: 0.1),
+                  bottom: BorderSide(color: Colors.black, width: 0.1),
                 ),
               ),
+              maxY: 2,
+              minY: -2,
+              lineTouchData: LineTouchData(
+                touchTooltipData: LineTouchTooltipData(
+                  tooltipBgColor: Colors.black,
+                  tooltipRoundedRadius: 8,
+                  getTooltipItems: (List<LineBarSpot> touchedSpots) {
+                    return touchedSpots.map((barSpot) {
+                      return LineTooltipItem(
+                        '${barSpot.y}',
+                        const TextStyle(color: Colors.white),
+                      );
+                    }).toList();
+                  },
+                ),
+              ),
+              lineBarsData: [
+                LineChartBarData(
+                  spots: viewModel.chartAverageSpots,
+                  color: Colors.black,
+                  isCurved: true,
+                  barWidth: 2,
+                  dotData: FlDotData(
+                    show: true,
+                    getDotPainter: (spot, percent, barData, index) =>
+                        FlDotCirclePainter(
+                      radius: 6, // Change this value as needed
+                      color: Colors.black, // This is the dot color
+                      strokeWidth: 1,
+                      strokeColor: Colors.white, // This is the stroke color
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTabBar(StatsViewModel viewModel) {
+    return SizedBox(
+      height: 75,
+      width: 300,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildTabItem(viewModel, 'Week', 0),
+          _buildTabItem(viewModel, 'Month', 1),
+          _buildTabItem(viewModel, 'Year', 2),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTabItem(StatsViewModel viewModel, String title, int index) {
+    final isSelected = viewModel.selectedTabIndex == index;
+    return GestureDetector(
+      onTap: () => viewModel.onTabTapped(index),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 200),
+              style: TextStyle(
+                color: isSelected ? Colors.black : Colors.grey,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+              child: Text(title),
+            ),
+            verticalSpaceSmall,
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              height: isSelected ? 2 : 0,
+              width: isSelected ? 20 : 0,
+              color: Colors.black,
             ),
           ],
         ),
