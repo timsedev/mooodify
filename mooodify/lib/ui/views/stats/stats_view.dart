@@ -115,12 +115,36 @@ class StatsView extends StackedView<StatsViewModel> {
           gridData: const FlGridData(show: false),
           titlesData: const FlTitlesData(show: false),
           borderData: FlBorderData(show: false),
+          lineTouchData: LineTouchData(
+            touchTooltipData: LineTouchTooltipData(
+              tooltipBgColor: Colors.black,
+              tooltipRoundedRadius: 8,
+              getTooltipItems: (List<LineBarSpot> touchedSpots) {
+                return touchedSpots.map((barSpot) {
+                  return LineTooltipItem(
+                    '${barSpot.y}',
+                    const TextStyle(color: Colors.white),
+                  );
+                }).toList();
+              },
+            ),
+          ),
           lineBarsData: [
             LineChartBarData(
-              spots: [],
+              spots: viewModel.chartAverageSpots,
+              color: Colors.black,
               isCurved: true,
               barWidth: 2,
-              dotData: const FlDotData(show: false),
+              dotData: FlDotData(
+                show: true,
+                getDotPainter: (spot, percent, barData, index) =>
+                    FlDotCirclePainter(
+                  radius: 6, // Change this value as needed
+                  color: Colors.black, // This is the dot color
+                  strokeWidth: 1,
+                  strokeColor: Colors.white, // This is the stroke color
+                ),
+              ),
             ),
           ],
         ),
