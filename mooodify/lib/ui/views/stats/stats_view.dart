@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:fl_chart/fl_chart.dart';
@@ -108,13 +109,86 @@ class StatsView extends StackedView<StatsViewModel> {
 
   Widget _buildChart(BuildContext context, StatsViewModel viewModel) {
     return SizedBox(
-      height: 100,
+      height: 250,
       width: screenWidth(context) * 0.8,
       child: LineChart(
         LineChartData(
           gridData: const FlGridData(show: false),
-          titlesData: const FlTitlesData(show: false),
+          titlesData: FlTitlesData(
+            show: true,
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                  showTitles: true,
+                  getTitlesWidget: (value, metadata) {
+                    switch (value.toInt()) {
+                      case 0:
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text('Mon'),
+                        );
+                      case 1:
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text('Tue'),
+                        );
+                      case 2:
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text('Wed'),
+                        );
+                      case 3:
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text('Thu'),
+                        );
+                      case 4:
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text('Fri'),
+                        );
+                      case 5:
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text('Sat'),
+                        );
+                      case 6:
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text('Sun'),
+                        );
+                      default:
+                        throw Exception('Invalid value: $value');
+                    }
+                  },
+                  reservedSize: 50),
+            ),
+            leftTitles: AxisTitles(
+                sideTitles: SideTitles(
+              showTitles: true,
+              getTitlesWidget: (value, metadata) {
+                log('value: $value');
+                switch (value.toInt()) {
+                  case -2:
+                    return const Text('-2');
+                  case 0:
+                    return const Text('0');
+                  case 2:
+                    return const Text('2');
+                  default:
+                    return Container();
+                }
+              },
+              interval: 2,
+              reservedSize: 40,
+            )),
+            topTitles:
+                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            rightTitles:
+                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          ),
           borderData: FlBorderData(show: false),
+          maxY: 2,
+          minY: -2,
           lineTouchData: LineTouchData(
             touchTooltipData: LineTouchTooltipData(
               tooltipBgColor: Colors.black,
