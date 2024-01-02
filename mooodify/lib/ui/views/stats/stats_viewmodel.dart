@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mooodify/app/app.locator.dart';
 import 'package:mooodify/core/models/mood.dart';
@@ -15,6 +16,9 @@ class StatsViewModel extends BaseViewModel {
   double currentAverage = 0;
   List<Color> gradientColors = excellentGradient;
 
+  double chartAverage = 0;
+  List<FlSpot> chartAverageSpots = [];
+
   void init() {
     setBusy(true);
     final now = DateTime.now();
@@ -23,6 +27,8 @@ class StatsViewModel extends BaseViewModel {
 
     setBusy(false);
     notifyListeners();
+
+    testGetSpots();
   }
 
   void getAverage(DateTime datetime) {
@@ -54,5 +60,25 @@ class StatsViewModel extends BaseViewModel {
 
   void navBack() {
     _navigationService.back();
+  }
+
+  void getWeeklyAverageSpots() {
+    final now = DateTime.now();
+    final last7Days =
+        List.generate(7, (index) => now.subtract(Duration(days: index)));
+    final moods = last7Days.map((day) => _moodService.getMood(day).value);
+    chartAverage = moods.reduce((a, b) => a + b) / moods.length;
+    chartAverageSpots = List.generate(7, (index) {
+      final day = last7Days[index];
+      final mood = _moodService.getMood(day);
+      return FlSpot(index.toDouble(), mood.value);
+    });
+  }
+
+  void testGetSpots() {
+    final stopwatch = Stopwatch()..start();
+    getWeeklyAverageSpots();
+    log('\ngetSpots() executed in ${stopwatch.elapsed}\n');
+    stopwatch.stop();
   }
 }
