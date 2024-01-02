@@ -16,14 +16,15 @@ class StatsViewModel extends BaseViewModel {
   double currentAverage = 0;
   List<Color> gradientColors = excellentGradient;
 
-  double chartAverage = 0;
-  List<FlSpot> chartAverageSpots = [];
+  double get chartAverage => _moodService.chartAverage;
+  List<FlSpot> get chartAverageSpots => _moodService.chartAverageSpots;
 
   void init() {
     setBusy(true);
     final now = DateTime.now();
     todayMood = _moodService.getMood(now);
     getAverage(now);
+    getWeeklyAverageSpots();
 
     setBusy(false);
     notifyListeners();
@@ -34,6 +35,11 @@ class StatsViewModel extends BaseViewModel {
   void getAverage(DateTime datetime) {
     currentAverage = _moodService.getAverage(datetime);
     getGradientColors();
+    notifyListeners();
+  }
+
+  void getWeeklyAverageSpots() {
+    _moodService.getWeeklyAverageSpots();
     notifyListeners();
   }
 
@@ -62,25 +68,9 @@ class StatsViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
-  void getWeeklyAverageSpots() {
-    final now = DateTime.now();
-    final startOfWeek = now.subtract(Duration(days: now.weekday - 1)); // Monday
-
-    final daysOfWeek =
-        List.generate(7, (index) => startOfWeek.add(Duration(days: index)));
-    final moods = daysOfWeek.map((day) => _moodService.getMood(day).value);
-
-    chartAverage = moods.reduce((a, b) => a + b) / moods.length;
-    chartAverageSpots = List.generate(7, (index) {
-      final day = daysOfWeek[index];
-      final mood = _moodService.getMood(day);
-      return FlSpot(index.toDouble(), mood.value);
-    });
-  }
-
   void testGetSpots() {
     final stopwatch = Stopwatch()..start();
-    getWeeklyAverageSpots();
+    _moodService.getWeeklyAverageSpots();
     log('\ngetSpots() executed in ${stopwatch.elapsed}\n');
     stopwatch.stop();
   }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:mooodify/core/models/mood.dart';
 import 'package:mooodify/ui/common/contants.dart';
 
@@ -12,6 +13,9 @@ class MoodService {
     Mood(type: 'Happy', value: 1),
     Mood(type: 'Excellent', value: 2),
   ];
+
+  double chartAverage = 0;
+  List<FlSpot> chartAverageSpots = [];
 
   void addMood(DateTime datetime, Mood mood) {
     final date = DateTime(datetime.year, datetime.month, datetime.day);
@@ -40,5 +44,21 @@ class MoodService {
     final moods = last7Days.map((day) => getMood(day).value);
     final average = moods.reduce((a, b) => a + b) / moods.length;
     return average;
+  }
+
+  void getWeeklyAverageSpots() {
+    final now = DateTime.now();
+    final startOfWeek = now.subtract(Duration(days: now.weekday - 1)); // Monday
+
+    final daysOfWeek =
+        List.generate(7, (index) => startOfWeek.add(Duration(days: index)));
+    final moods = daysOfWeek.map((day) => getMood(day).value);
+
+    chartAverage = moods.reduce((a, b) => a + b) / moods.length;
+    chartAverageSpots = List.generate(7, (index) {
+      final day = daysOfWeek[index];
+      final mood = getMood(day);
+      return FlSpot(index.toDouble(), mood.value);
+    });
   }
 }
