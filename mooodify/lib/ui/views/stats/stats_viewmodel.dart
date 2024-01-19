@@ -6,6 +6,7 @@ import 'package:mooodify/app/app.locator.dart';
 import 'package:mooodify/core/models/mood.dart';
 import 'package:mooodify/services/mood_service.dart';
 import 'package:mooodify/ui/common/contants.dart';
+import 'package:mooodify/ui/views/stats/stats_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -21,17 +22,34 @@ class StatsViewModel extends BaseViewModel {
 
   int selectedTabIndex = 0;
 
+  AnimationController? animationController;
+  ColorTween? colorTween;
+  Color get currentColor => colorTween!.evaluate(animationController!)!;
+
   void init() {
     setBusy(true);
+
     final now = DateTime.now();
     todayMood = _moodService.getMood(now);
     getAverage(now);
     getWeeklyAverageSpots();
 
     setBusy(false);
-    notifyListeners();
+  }
 
-    testGetSpots();
+  void initAnimationController(TickerProvider vsync) {
+    animationController = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: vsync,
+    )..addListener(notifyListeners);
+
+    animationController!.repeat(reverse: true);
+
+    colorTween = ColorTween(begin: Colors.blue, end: Colors.red);
+  }
+
+  void disposeAnimationController() {
+    animationController?.dispose();
   }
 
   void getAverage(DateTime datetime) {
