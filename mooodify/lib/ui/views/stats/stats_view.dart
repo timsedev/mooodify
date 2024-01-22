@@ -217,7 +217,7 @@ class StatsView extends StackedView<StatsViewModel> {
 
   Widget _buildTabBar(StatsViewModel viewModel) {
     return SizedBox(
-      height: 75,
+      height: 100,
       width: 300,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -234,7 +234,10 @@ class StatsView extends StackedView<StatsViewModel> {
     final isSelected = viewModel.selectedTabIndex == index;
     return GestureDetector(
       onTap: () => viewModel.onTabTapped(index),
-      child: Padding(
+      child: Container(
+        color: Colors.transparent,
+        height: 75,
+        width: 100,
         padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
