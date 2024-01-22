@@ -24,7 +24,7 @@ class MoodService {
   double chartAverage = 0;
   List<FlSpot> chartAverageSpots = [];
 
-  MoodService(StorageService? storageService) {
+  MoodService({StorageService? storageService}) {
     if (storageService != null) {
       _storageService = storageService;
     }
