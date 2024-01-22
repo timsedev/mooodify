@@ -3,6 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:mooodify/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mooodify/services/mood_service.dart';
+import 'package:mooodify/services/storage_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -12,6 +13,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<MoodService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<StorageService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -19,6 +21,7 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterMoodService();
+  getAndRegisterStorageService();
 // @stacked-mock-register
 }
 
@@ -76,6 +79,13 @@ MockMoodService getAndRegisterMoodService() {
   _removeRegistrationIfExists<MoodService>();
   final service = MockMoodService();
   locator.registerSingleton<MoodService>(service);
+  return service;
+}
+
+MockStorageService getAndRegisterStorageService() {
+  _removeRegistrationIfExists<StorageService>();
+  final service = MockStorageService();
+  locator.registerSingleton<StorageService>(service);
   return service;
 }
 // @stacked-mock-create
