@@ -10,6 +10,7 @@ dependencies:
   fl_chart: ^0.64.0
   flutter:
     sdk: flutter
+  flutter_secure_storage: ^9.0.0
   intl: ^0.18.1
   stacked: ^3.4.0
   stacked_services: ^1.1.0
