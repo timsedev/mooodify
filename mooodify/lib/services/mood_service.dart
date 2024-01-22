@@ -1,11 +1,18 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:fl_chart/fl_chart.dart';
+import 'package:mooodify/app/app.locator.dart';
 import 'package:mooodify/core/models/mood.dart';
-import 'package:mooodify/ui/common/contants.dart';
+import 'package:mooodify/services/storage_service.dart';
 
 class MoodService {
+  final _storageService = locator<StorageService>();
+
+  /// this is where all the recorded moods are
   Map<DateTime, Mood?> moodByDay = {};
+
+  /// these are all the mood options
   List<Mood> allMoods = [
     Mood(type: 'Terrible', value: -2),
     Mood(type: 'Bad', value: -1),
@@ -16,6 +23,40 @@ class MoodService {
 
   double chartAverage = 0;
   List<FlSpot> chartAverageSpots = [];
+
+  Future<void> readMoods() async {
+    final encodedMoods = await _storageService.readMoods();
+  }
+
+  void encodeMoods() {
+    final encodedMoods = [];
+
+    moodByDay.forEach((date, mood) {
+      final moodMap = {
+        'date': date.toIso8601String(),
+        'mood': mood!.value,
+      };
+
+      final encodedMood = jsonEncode(moodMap);
+
+      encodedMoods.add(encodedMood);
+    });
+
+    _storageService.writeMoods(encodedMoods.join(','));
+  }
+
+  void decodeMoods(String encodedString) {
+    final encodedMoods = encodedString.split(',');
+
+    for (final encodedMood in encodedMoods) {
+      final moodMap = jsonDecode(encodedMood);
+
+      final date = DateTime.parse(moodMap['date']);
+      final mood = allMoods.firstWhere((mood) => mood.value == moodMap['mood']);
+
+      moodByDay[date] = mood;
+    }
+  }
 
   void addMood(DateTime datetime, Mood mood) {
     final date = DateTime(datetime.year, datetime.month, datetime.day);
