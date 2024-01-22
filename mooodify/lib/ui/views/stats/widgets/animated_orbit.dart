@@ -72,28 +72,51 @@ class _AnimatedOrbitState extends State<AnimatedOrbit>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        AnimatedBuilder(
-          animation: rotationController,
-          builder: (context, child) {
-            return Transform.rotate(
-              angle: rotationController.value * 2.0 * pi,
-              child: Container(
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.lightGreen,
-                      colorAnimation.value,
-                    ],
+        Stack(
+          children: [
+            AnimatedBuilder(
+              animation: rotationController,
+              builder: (context, child) {
+                return Transform.rotate(
+                  angle: rotationController.value * 2.0 * pi,
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.lightGreen,
+                          colorAnimation.value,
+                        ],
+                      ),
+                    ),
                   ),
+                );
+              },
+            ),
+            Positioned.fill(
+              child: Center(
+                  child: Text(
+                'Happy',
+
+                /// temporarily happy ;)
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      color: Colors.white10,
+                      offset: Offset(0, 2),
+                    )
+                  ],
                 ),
-              ),
-            );
-          },
+              )),
+            ),
+          ],
         ),
         SizedBox(height: shadowAnimation.value * 2),
         ClipOval(
