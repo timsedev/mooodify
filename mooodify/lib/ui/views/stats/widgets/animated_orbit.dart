@@ -13,8 +13,8 @@ class AnimatedOrbit extends StatefulWidget {
 class _AnimatedOrbitState extends State<AnimatedOrbit>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  late AnimationController shadowController;
   late AnimationController rotationController;
+  late AnimationController colorController;
   late Animation colorAnimation;
   late Animation positionAnimation;
   late Animation shadowAnimation;
@@ -26,16 +26,17 @@ class _AnimatedOrbitState extends State<AnimatedOrbit>
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 1))
           ..addListener(() => setState(() {}));
-    shadowController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 1))
-          ..addListener(() => setState(() {}));
 
     rotationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 10))
           ..repeat();
 
+    colorController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 10))
+          ..repeat(reverse: true);
+
     colorAnimation = ColorTween(begin: Colors.lightGreen, end: Colors.yellow)
-        .animate(controller);
+        .animate(colorController);
 
     positionAnimation = Tween(begin: 5.0, end: 12.0).animate(
       CurvedAnimation(
@@ -46,7 +47,7 @@ class _AnimatedOrbitState extends State<AnimatedOrbit>
 
     shadowAnimation = Tween(begin: 5.0, end: 8.0).animate(
       CurvedAnimation(
-        parent: shadowController,
+        parent: controller,
         curve: Curves.easeInOut,
       ),
     );
@@ -54,16 +55,14 @@ class _AnimatedOrbitState extends State<AnimatedOrbit>
     shadowColorAnimation = ColorTween(
             begin: Colors.grey[900]!.withOpacity(0.5),
             end: Colors.grey[400]!.withOpacity(0.3))
-        .animate(shadowController);
+        .animate(controller);
 
     controller.repeat(reverse: true);
-    shadowController.repeat(reverse: true);
   }
 
   @override
   void dispose() {
     controller.dispose();
-    shadowController.dispose();
     rotationController.dispose();
     super.dispose();
   }
@@ -73,15 +72,14 @@ class _AnimatedOrbitState extends State<AnimatedOrbit>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('${shadowController.value * 100}'),
         AnimatedBuilder(
           animation: rotationController,
           builder: (context, child) {
             return Transform.rotate(
               angle: rotationController.value * 2.0 * pi,
               child: Container(
-                width: 100,
-                height: 100,
+                width: 200,
+                height: 200,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: LinearGradient(

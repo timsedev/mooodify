@@ -27,10 +27,8 @@ class StatsView extends StackedView<StatsViewModel> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        height: 500,
-                        width: 500,
+                        height: 300,
                         alignment: Alignment.center,
-                        color: Colors.lightBlue[100],
                         child: AnimatedOrbit(),
                       ),
                       verticalSpaceLarge,
