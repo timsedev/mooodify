@@ -7,7 +7,7 @@ import 'package:mooodify/core/models/mood.dart';
 import 'package:mooodify/services/storage_service.dart';
 
 class MoodService {
-  final _storageService = locator<StorageService>();
+  StorageService _storageService = locator<StorageService>();
 
   /// this is where all the recorded moods are
   Map<DateTime, Mood?> moodByDay = {};
@@ -23,6 +23,12 @@ class MoodService {
 
   double chartAverage = 0;
   List<FlSpot> chartAverageSpots = [];
+
+  MoodService(StorageService? storageService) {
+    if (storageService != null) {
+      _storageService = storageService;
+    }
+  }
 
   Future<void> readMoods() async {
     final encodedMoods = await _storageService.readMoods();
