@@ -1,10 +1,6 @@
 import 'dart:developer';
-import 'dart:ui';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mooodify/core/models/mood.dart';
-import 'package:mooodify/ui/common/contants.dart';
 import 'package:mooodify/ui/common/ui_helpers.dart';
 import 'package:mooodify/ui/views/stats/widgets/animated_orbit.dart';
 import 'package:stacked/stacked.dart';
@@ -24,14 +20,24 @@ class StatsView extends StackedView<StatsViewModel> {
       appBar: _buildAppBar(context, viewModel),
       body: SafeArea(
         child: !viewModel.isBusy
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  verticalSpaceMedium,
-                  AnimatedOrbit(), // temporarily happy ;)
-                  verticalSpaceLarge,
-                  _buildChart(context, viewModel),
-                ],
+            ? SingleChildScrollView(
+                child: SizedBox(
+                  height: screenHeight(context),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 500,
+                        width: 500,
+                        alignment: Alignment.center,
+                        color: Colors.lightBlue[100],
+                        child: AnimatedOrbit(),
+                      ),
+                      verticalSpaceLarge,
+                      Expanded(child: _buildChart(context, viewModel)),
+                    ],
+                  ),
+                ),
               )
             : const Center(
                 child: CircularProgressIndicator(),
