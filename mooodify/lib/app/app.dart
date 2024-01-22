@@ -17,11 +17,9 @@ import 'package:mooodify/services/storage_service.dart';
 // @stacked-route
   ],
   dependencies: [
-    LazySingleton(classType: BottomSheetService),
-    LazySingleton(classType: DialogService),
+    LazySingleton(classType: StorageService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: MoodService),
-    LazySingleton(classType: StorageService),
 // @stacked-service
   ],
   bottomsheets: [
