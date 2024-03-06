@@ -62,8 +62,10 @@ class _AnimatedOrbitState extends State<AnimatedOrbit>
 
   @override
   void dispose() {
+    colorController.dispose();
     controller.dispose();
     rotationController.dispose();
+
     super.dispose();
   }
 

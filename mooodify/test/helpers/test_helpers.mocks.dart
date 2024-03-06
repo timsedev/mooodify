@@ -761,22 +761,15 @@ class MockMoodService extends _i1.Mock implements _i8.MoodService {
       ) as _i6.Future<void>);
 
   @override
-  void encodeMoods() => super.noSuchMethod(
-        Invocation.method(
-          #encodeMoods,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void decodeMoods(String? encodedString) => super.noSuchMethod(
+  Map<DateTime, _i2.Mood> decodeMoods(String? encodedMoods) =>
+      (super.noSuchMethod(
         Invocation.method(
           #decodeMoods,
-          [encodedString],
+          [encodedMoods],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: <DateTime, _i2.Mood>{},
+        returnValueForMissingStub: <DateTime, _i2.Mood>{},
+      ) as Map<DateTime, _i2.Mood>);
 
   @override
   void addMood(
