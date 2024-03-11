@@ -6,6 +6,7 @@ import 'package:mooodify/ui/views/calendar/calendar_view.dart';
 import 'package:mooodify/services/mood_service.dart';
 import 'package:mooodify/ui/views/stats/stats_view.dart';
 import 'package:mooodify/services/storage_service.dart';
+import 'package:mooodify/services/api_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -20,6 +21,7 @@ import 'package:mooodify/services/storage_service.dart';
     LazySingleton(classType: StorageService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: MoodService),
+    LazySingleton(classType: ApiService),
 // @stacked-service
   ],
   bottomsheets: [

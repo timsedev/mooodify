@@ -15,11 +15,11 @@ class MoodService {
 
   /// these are all the mood options
   List<Mood> allMoods = [
-    Mood(type: 'Terrible', value: -2),
-    Mood(type: 'Bad', value: -1),
-    Mood(type: 'Neutral', value: 0),
-    Mood(type: 'Happy', value: 1),
-    Mood(type: 'Excellent', value: 2),
+    // Mood(type: 'Terrible', value: -2),
+    // Mood(type: 'Bad', value: -1),
+    // Mood(type: 'Neutral', value: 0),
+    // Mood(type: 'Happy', value: 1),
+    // Mood(type: 'Excellent', value: 2),
   ];
 
   double chartAverage = 0;

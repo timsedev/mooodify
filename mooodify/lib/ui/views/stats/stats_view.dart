@@ -29,7 +29,7 @@ class StatsView extends StackedView<StatsViewModel> {
                       Container(
                         height: 300,
                         alignment: Alignment.center,
-                        child: AnimatedOrbit(),
+                        child: const AnimatedOrbit(),
                       ),
                       verticalSpaceLarge,
                       Expanded(child: _buildChart(context, viewModel)),
