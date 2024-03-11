@@ -1,4 +1,4 @@
-package com.example.mooodify
+package com.timsedev.mooodify
 
 import io.flutter.embedding.android.FlutterActivity
 
